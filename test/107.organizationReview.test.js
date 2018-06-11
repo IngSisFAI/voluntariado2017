@@ -1,7 +1,6 @@
 
 'use strict';
 
-// Require the dev-dependencies
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const jsonSchema = require('chai-json-schema');
@@ -40,11 +39,8 @@ var organizationReviewSchema = {
   },
 };
 
-// esto se ejecuta primero de todo
 describe('Organization Review', (done) => {
   before((done) => {
-// runs before all tests in this block
-    console.log('Deleting Organizations Reviews..');
     chai.request(server)
       .delete('/api/OrganizationReviews')
       .end((err, res) => {
@@ -117,7 +113,7 @@ describe('Organization Review', (done) => {
       });
     });
 
-    /*Los siguientes 2 test retornan el mismo error por diferentes motivos*/
+    /*Los siguientes 2 test retornan el mismo error con diferente entrada ya que no encuentran el donner*/
     it('it should fail adding a organizationreview: inexistent donner', (done) =>{
       chai.request(server)
       .post('/api/OrganizationReviews')
@@ -126,7 +122,7 @@ describe('Organization Review', (done) => {
       })
       .end((err,res) =>{
         res.body.should.be.a('object');
-        res.should.have.status(400);
+        res.should.have.status(404);
         done();
       });
     });
@@ -309,17 +305,19 @@ describe('Organization Review', (done) => {
   });
 
   describe('/DELETE api/OrganizationReviews ', function (){
-    chai.request(server)
-    .delete('/api/OrganizationReviews')
-    .end((err, res) => {
+    it('it should remove all OR',)
       chai.request(server)
-      .get('/api/OrganizationReviews')
+      .delete('/api/OrganizationReviews')
       .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.have.length(0);
-        done();
+        chai.request(server)
+        .get('/api/OrganizationReviews')
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.have.length(0);
+          done();
+        });
       });
-    });
+
   });
 
 });
