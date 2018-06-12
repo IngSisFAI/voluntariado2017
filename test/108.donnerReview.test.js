@@ -74,9 +74,7 @@ var donationResponseSchema = {
 };
  
 describe('donationResponse', (done) => {
-  before((done) => {
-// runs before all tests in this block
-    console.log('Deleting donation response..');
+  before((done) => {  
     chai.request(server)
       .delete('/api/donationResponses')
       .end((err, res) => {
@@ -97,10 +95,7 @@ describe('/POST api/donationResponse ', function() {
       // recupero el donador que cree antes
       chai.request(server)
         .get('/api/Donners')
-        .end((err, resdonner) => {
-          console.log('Llegue a ...');
-          console.log(respdonation.body[0]);
-          console.log(resdonner.body[0]);
+        .end((err, resdonner) => { 
           chai.request(server).post('/api/donationResponses')
             .send({
               creationDate: '2018-04-19',
@@ -121,42 +116,28 @@ describe('/POST api/donationResponse ', function() {
   });
 });
 
-
-
-// Elimino los donners antes de postear
 describe('Donner Review', (done) => {
-    before((done) => { 
-      console.log('Deleting Donners Reviews..');
+    before((done) => {  
       chai.request(server)
         .delete('/api/DonnerReviews')
         .end((err, res) => {
-
           chai.request(server)
           .get('/api/DonnerReviews')
           .end((err, res) => {
-            res.body.should.be.a('array');
-            console.log("El objeto es.....");
-            console.log(res.body[0]);
+            res.body.should.be.a('array'); 
             for (let i = 0; i < res.body.length; i++)
               res.body[i].should.be.jsonSchema(donnerReviewSchema);
             res.should.have.status(200);
             done();
           });
-
           done();
         });
     });
 });
   
  
-
- 
-   
-// Elimino los donners antes de postear
 describe('Donner Review', (done) => {
-  before((done) => {
-// runs before all tests in this block
-    console.log('Deleting Donners Reviews..');
+  before((done) => { 
     chai.request(server)
       .delete('/api/DonnerReviews')
       .end((err, res) => {
@@ -169,7 +150,7 @@ describe('Donner Review', (done) => {
 // Posteo un donner con una organizacion invalida y sin donnation response id
 describe('/POST api/DonnerReviews ', function() {
   this.timeout(100000);
-  it('Posteo un Donner con una organizacion invalida ya que es un parametro', (done) => { 
+  it('It should post one Donation Reviews', (Done) => { 
     chai.request(server)
     .get('/api/DonationResponses')
     .end((err, respuesta) => {
@@ -182,18 +163,16 @@ describe('/POST api/DonnerReviews ', function() {
                 res.should.have.status(400);
                 done();
               });  
-            });
+    });
   });
 
-  it('Posteo un dooner correcto', (done) => {
+  it('It should post one donation', (done) => {
     chai.request(server)
       .get('/api/Organizations')
       .end((err, res) => {
         chai.request(server)
           .get('/api/DonationResponses')
-          .end((err, respuesta) => {
-            console.log('Llegue a ...');
-            console.log(res.body[0]);
+          .end((err, respuesta) => { 
             chai.request(server).post('/api/DonnerReviews')
               .send({
                 liked: true,
@@ -211,8 +190,8 @@ describe('/POST api/DonnerReviews ', function() {
           });
       });
   });
-
-  it('Posteo un Donner con una organizacion invalida sin descripcion', (done) => { 
+// Posteo un Donner con una organizacion invalida sin descripcion
+  it('It should publish a donation, with an invalid organization', (done) => { 
     chai.request(server)
     .get('/api/DonationResponses')
     .end((err, respuesta) => {
@@ -231,7 +210,7 @@ describe('/POST api/DonnerReviews ', function() {
             });
   });
 
-  it('Posteo un Donner con una organizacion invalida', (done) => { 
+  it('It should post a Donner with an invalid organization', (done) => { 
     chai.request(server)
     .get('/api/DonationResponses')
     .end((err, respuesta) => {
@@ -249,7 +228,7 @@ describe('/POST api/DonnerReviews ', function() {
             });
   });
 
-  it('Posteo un Donner con mas parametros', (done) => { 
+  it('It should post a Donner with more parameters', (done) => { 
     chai.request(server)
     .get('/api/DonationResponses')
     .end((err, respuesta) => {
@@ -268,10 +247,10 @@ describe('/POST api/DonnerReviews ', function() {
                 res.should.have.status(400);
                 done();
               });  
-            });
+    });
   }); 
 
-  it('Posteo un Donner con una organizacion con dos parametros requeridos de muchos', (done) => { 
+  it('It should post a Donner with an organization with two required parameters of many', (done) => { 
     chai.request(server)
     .get('/api/DonationResponses')
     .end((err, respuesta) => {
@@ -288,7 +267,7 @@ describe('/POST api/DonnerReviews ', function() {
             });
   });
 
-  it('Posteo un Donner sin parametros', (done) => { 
+  it('It should post a Donner without parameters', (done) => { 
     chai.request(server)
     .get('/api/DonationResponses')
     .end((err, respuesta) => {
@@ -304,7 +283,7 @@ describe('/POST api/DonnerReviews ', function() {
       });
 
 
-  it('Post de una donner con una donación invalida', (done) => {     
+  it('It should donner with an invalid donation', (done) => {     
     chai.request(server).post('/api/DonnerReviews')
       .send({
         liked: true,
@@ -321,12 +300,19 @@ describe('/POST api/DonnerReviews ', function() {
 
 });
  
- 
 
-//  Elimino los donners antes de postear
 describe('Donner Review', (done) => {
-  before((done) => { 
-    console.log('Deleting Donners Reviews..');
+  before((done) => {  
+    chai.request(server)
+      .delete('/api/DonnerReviews')
+      .end((err, res) => {
+        done();
+      });
+  });
+});
+ 
+describe('Donner Review', (done) => {
+  before((done) => {  
     chai.request(server)
       .delete('/api/DonnerReviews')
       .end((err, res) => {
@@ -335,32 +321,16 @@ describe('Donner Review', (done) => {
   });
 });
 
- 
 
-// Borro los donner
-describe('Donner Review', (done) => {
-  before((done) => { 
-    console.log('Deleting Donners Reviews..');
-    chai.request(server)
-      .delete('/api/DonnerReviews')
-      .end((err, res) => {
-        done();
-      });
-  });
-});
-
-// Posteo una donner calificada
 describe('/POST api/DonnerReviews ', function() {
   this.timeout(100000);
-  it('Post donnerReview con donnation response calificada', (done) => {
+  it('Post donnerReview con donnation response qualified', (done) => {
     chai.request(server)
       .get('/api/Organizations')
       .end((err, res) => {
         chai.request(server)
           .get('/api/DonationResponses')
-          .end((err, respuesta) => {
-            console.log('Llegue a ...');
-            console.log(res.body[0]);
+          .end((err, respuesta) => { 
             chai.request(server).post('/api/DonnerReviews')
               .send({
                 liked: true,
@@ -386,9 +356,7 @@ describe('/GET api/DonnerReviews ', function() {
       chai.request(server)
         .get('/api/DonnerReviews')
         .end((err, res) => {
-          res.body.should.be.a('array');
-          console.log("El objeto es.....");
-          console.log(res.body[0]);
+          res.body.should.be.a('array'); 
           for (let i = 0; i < res.body.length; i++)
             res.body[i].should.be.jsonSchema(donnerReviewSchema);
           res.should.have.status(200);
