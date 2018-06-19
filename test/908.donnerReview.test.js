@@ -144,7 +144,7 @@ describe('Donner Review', (done) => {
 // Posteo un donner con una organizacion invalida y sin donnation response id
 describe('/POST api/DonnerReviews ', function() {
   this.timeout(100000);
-  it('It should post one Donation Reviews', (done) => {
+  it('It should post one Donation Review', (done) => {
     chai.request(server)
       .get('/api/DonationResponses')
       .end((err, respuesta) => {
@@ -184,7 +184,7 @@ describe('/POST api/DonnerReviews ', function() {
       });
   });
   // Posteo un Donner con una organizacion invalida sin descripcion
-  it('It should publish a donation, with an invalid organization', (done) => {
+  it('It should fail posting a donation: organization not found', (done) => {
     chai.request(server)
       .get('/api/DonationResponses')
       .end((err, respuesta) => {
@@ -203,7 +203,7 @@ describe('/POST api/DonnerReviews ', function() {
       });
   });
 
-  it('It should post a Donner with an invalid organization', (done) => {
+  it('It should fail posting a Donner: organization not found', (done) => {
     chai.request(server)
       .get('/api/DonationResponses')
       .end((err, respuesta) => {
@@ -221,7 +221,7 @@ describe('/POST api/DonnerReviews ', function() {
       });
   });
 
-  it('It should post a Donner with more parameters', (done) => {
+  it('It should fail posting a Donner: extra fields', (done) => {
     chai.request(server)
       .get('/api/DonationResponses')
       .end((err, respuesta) => {
@@ -243,8 +243,8 @@ describe('/POST api/DonnerReviews ', function() {
       });
   });
 
-  it(`It should post a Donner with an organization 
-    with two required parameters of many`, (done) => {
+  it(`It should fail posting a Donner: 
+  missing fields in organization`, (done) => {
     chai.request(server)
       .get('/api/DonationResponses')
       .end((err, respuesta) => {
@@ -261,7 +261,7 @@ describe('/POST api/DonnerReviews ', function() {
       });
   });
 
-  it('It should post a Donner without parameters', (done) => {
+  it('It should fail posting a Donner: missing fields', (done) => {
     chai.request(server)
       .get('/api/DonationResponses')
       .end((err, respuesta) => {
@@ -275,7 +275,7 @@ describe('/POST api/DonnerReviews ', function() {
       });
   });
 
-  it('It should donner with an invalid donation', (done) => {
+  it('It should fail posting a donner: donation not found', (done) => {
     chai.request(server).post('/api/DonnerReviews')
       .send({
         liked: true,
@@ -313,7 +313,8 @@ describe('Donner Review', (done) => {
 
 describe('/POST api/DonnerReviews ', function() {
   this.timeout(100000);
-  it('Post donnerReview con donnation response qualified', (done) => {
+  it('it should fail posting a donnerReview:' +
+    'donation response not found', (done) => {
     chai.request(server)
       .get('/api/Organizations')
       .end((err, res) => {

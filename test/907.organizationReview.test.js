@@ -18,7 +18,7 @@ var organizationReviewSchema = {
     'liked',
     'description',
     'donnerId',
-    'donationRequestId'
+    'donationRequestId',
   ],
   properties: {
     liked: {
@@ -58,7 +58,7 @@ describe('Organization Review extra tests', (done) => {
     });
   });
 
-  describe('Posting what is needed for OR tests', function () {
+  describe('Posting what is needed for OR tests', function() {
     this.timeout(100000);
     it('it should post one Donner', (done) => {
       chai.request(server)
@@ -84,7 +84,7 @@ describe('Organization Review extra tests', (done) => {
         });
     });
 
-    it('it should post one donation requests', (done) => {
+    it('it should post one donation request', (done) => {
       chai.request(server)
         .get('/api/Products')
         .end((err, resp) => {
@@ -139,9 +139,10 @@ describe('Organization Review extra tests', (done) => {
     });
   });
 
-  describe('/POST api/OrganizationReviews ', function () {
+  describe('/POST api/OrganizationReviews ', function() {
     this.timeout(100000);
-    it('it shoul fail adding a new OrganizationReviews: wrong input', (done) => {
+    it('it shoul fail adding a new Organization Review: ' +
+      'wrong input', (done) => {
       chai.request(server)
       .get('/api/Donners')
       .end((err, resD) => {
@@ -154,18 +155,19 @@ describe('Organization Review extra tests', (done) => {
             liked: 'asd',
             description: '',
             donnerId: resD.body[0].id,
-            donationRequestId: resDR.body[0].id
+            donationRequestId: resDR.body[0].id,
           })
           .end((err, res) => {
-          res.body.should.be.a('object');
-          res.should.have.status(400);
-          done();
+            res.body.should.be.a('object');
+            res.should.have.status(400);
+            done();
           });
         });
       });
     });
 
-    it('it should fail adding a organizationreview: repeted item', (done) => {
+    it('it should fail adding an organization review: ' +
+      'repeated item', (done) => {
       chai.request(server)
         .delete('/api/OrganizationReviews')
         .end((err, resD) => {
@@ -201,11 +203,12 @@ describe('Organization Review extra tests', (done) => {
         });
     });
 
-    it('it should fail adding a organizationreview: incomplete input', (done) => {
+    it('it should fail adding an organization review:' +
+      ' incomplete input', (done) => {
       chai.request(server)
         .post('/api/OrganizationReviews')
         .send({
-          liked: false
+          liked: false,
         })
         .end((err, res) => {
           res.body.should.be.a('object');
@@ -214,7 +217,8 @@ describe('Organization Review extra tests', (done) => {
         });
     });
 
-    it('it should fail adding a new organizationreview: inexistent donner', (done) => {
+    it('it should fail adding a new organization review: ' +
+      'donner not found', (done) => {
       chai.request(server)
         .get('/api/DonationRequests')
         .end((err, respuesta) => {
@@ -233,7 +237,8 @@ describe('Organization Review extra tests', (done) => {
         });
     });
 
-    it('it should fail adding a new organizationreview: inexistent donation request', (done) => {
+    it('it should fail adding a new organization review:' +
+      ' donation request not found', (done) => {
       chai.request(server)
         .get('/api/Donners')
         .end((err, res) => {
@@ -253,7 +258,7 @@ describe('Organization Review extra tests', (done) => {
         });
     });
 
-    it('it should fail adding a organizationreview: no input', (done) => {
+    it('it should fail adding an organization review: empty body', (done) => {
       chai.request(server)
         .delete('/api/OrganizationReviews')
         .end((err, resD) => {
@@ -278,7 +283,7 @@ describe('Organization Review extra tests', (done) => {
         });
     });
 
-    it('it should fail adding a organizationreview: extra data', (done) => {
+    it('it should fail adding an organization review: extra fields', (done) => {
       chai.request(server)
         .delete('/api/OrganizationReviews')
         .end((err, resD) => {
@@ -292,7 +297,7 @@ describe('Organization Review extra tests', (done) => {
                     .send({
                       donnerId: resGD.body[0].id,
                       donationRequestId: resGD1.body[0].id,
-                      otroCampo: 'otrovalor'
+                      otroCampo: 'otrovalor',
                     })
                     .end((err, resP) => {
                       resP.body.should.be.a('object');
@@ -305,14 +310,15 @@ describe('Organization Review extra tests', (done) => {
     });
   });
 
-  describe('/PATCH api/OrganizationReviews ', function () {
+  describe('/PATCH api/OrganizationReviews ', function() {
     this.timeout(100000);
     // Para este test se requiere que haya al menos 1 elto orgReview cargado
     it('it should patch one Organization Review', (done) => {
       chai.request(server)
         .get('/api/OrganizationReviews')
         .end((err, res) => {
-          chai.request(server).patch('/api/OrganizationReviews/' + res.body[0].id)
+          chai.request(server).patch('/api/OrganizationReviews/' +
+            res.body[0].id)
             .send({
               liked: false,
               description: 'Descripcion cambiada por el test',
@@ -326,11 +332,13 @@ describe('Organization Review extra tests', (done) => {
         });
     });
 
-    it('it should fail patching one Organization Review: wrong input', (done) => {
+    it('it should fail patching one Organization Review: ' +
+      'wrong input', (done) => {
       chai.request(server)
         .get('/api/OrganizationReviews')
         .end((err, res) => {
-          chai.request(server).patch('/api/OrganizationReviews/' + res.body[0].id)
+          chai.request(server).patch('/api/OrganizationReviews/' +
+            res.body[0].id)
             .send({
               liked: 'unvalorquenoestrunifols',
               description: '',
@@ -344,8 +352,10 @@ describe('Organization Review extra tests', (done) => {
         });
     });
 
-    it('it should fail patching one Organization Review: OR not found', (done) => {
-      chai.request(server).patch('/api/OrganizationReviews/' + 'asdasdb42equisde1aaReeee')
+    it('it should fail patching one Organization Review:' +
+      ' OR not found', (done) => {
+      chai.request(server).patch('/api/OrganizationReviews/' +
+        'asdasdb42equisde1aaReeee')
         .send({
           liked: false,
           description: 'Descripcion cambiada por el test',
@@ -357,15 +367,17 @@ describe('Organization Review extra tests', (done) => {
         });
     });
 
-    it('it should fail patching one Organization Review: extra data', (done) => {
+    it('it should fail patching one Organization Review: ' +
+      'extra fields', (done) => {
       chai.request(server)
         .get('/api/OrganizationReviews')
         .end((err, res) => {
-          chai.request(server).patch('/api/OrganizationReviews/' + res.body[0].id)
+          chai.request(server).patch('/api/OrganizationReviews/' +
+            res.body[0].id)
             .send({
               donnerId: 'asd',
               donationRequestId: 'asd',
-              otroCampoCualqueira: 'unValorCuaqueira'
+              otroCampoCualqueira: 'unValorCuaqueira',
             })
             .end((err, resPatch) => {
               resPatch.body.should.be.a('object');
@@ -375,11 +387,13 @@ describe('Organization Review extra tests', (done) => {
         });
     });
 
-    it('it should fail patching one Organization Review: no data', (done) => {
+    it('it should fail patching one Organization Review: ' +
+      'empty body', (done) => {
       chai.request(server)
         .get('/api/OrganizationReviews')
         .end((err, res) => {
-          chai.request(server).patch('/api/OrganizationReviews/' + res.body[0].id)
+          chai.request(server).patch('/api/OrganizationReviews/' +
+            res.body[0].id)
             .send({})
             .end((err, resPatch) => {
               resPatch.body.should.be.a('object');
@@ -390,8 +404,8 @@ describe('Organization Review extra tests', (done) => {
     });
   });
 
-  describe('/DELETE api/OrganizationReviews ', function () {
-    it('it should remove all OR', (done) => {
+  describe('/DELETE api/OrganizationReviews ', function() {
+    it('it should remove all Organization Reviews', (done) => {
       chai.request(server)
         .delete('/api/OrganizationReviews')
         .end((err, res) => {
@@ -405,5 +419,4 @@ describe('Organization Review extra tests', (done) => {
         });
     });
   });
-
 });

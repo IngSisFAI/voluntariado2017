@@ -264,7 +264,7 @@ describe('DonationRequest', (done) => {
     });
 
     // SE POSTEA CON PRODUCTO INEXISTENTE
-    it('it should fail adding a new donationrequest: inexistent product'
+    it('it should fail adding a new donation request: product not found'
     , (done) => {
       // recupero una organizacion
       chai.request(server)
@@ -293,7 +293,7 @@ describe('DonationRequest', (done) => {
     });
 
     // SE POSTEA CON ORGANIZACIÓN INEXISTENTE
-    it('it should fail adding a new donationrequest: inexistent organization'
+    it('it should fail adding a new donation request: organization not found'
     , (done) => {
       chai.request(server)
         // recupero un producto
@@ -322,7 +322,7 @@ describe('DonationRequest', (done) => {
     });
 
     // SE POSTEA UN PEDIDO PERMANENTE CON FECHA DE EXPIRACION INVÁLIDA
-    it(`it should fail adding a new permanent donationrequest: 
+    it(`it should fail adding a new permanent donation request: 
     expiration date must be 30 days greater than creation date`
     , (done) => {
       chai.request(server)
@@ -357,8 +357,8 @@ describe('DonationRequest', (done) => {
     });
 
     // SE POSTEA UN PEDIDO CON CANTIDAD = 0
-    it(`it should fail adding a new onetime donationrequest: 
-      amount cannot be less than 0`
+    it(`it should fail adding a new onetime donation request: 
+      amount can not be less than 0`
     , (done) => {
       chai.request(server)
         // recupero un producto
@@ -392,7 +392,7 @@ describe('DonationRequest', (done) => {
     });
 
     // SE POSTEA UN PEDIDO CON FECHA MENOR A 2 DIAS
-    it(`it should fail adding a new onetime donationrequest: 
+    it(`it should fail adding a new onetime donation request: 
       expiration date must be 2 days greater than creation date`
     , (done) => {
       chai.request(server)
@@ -427,7 +427,7 @@ describe('DonationRequest', (done) => {
     });
 
     // SE TRATA DE POSTEAR SIN ATRIBUTOS EN EL BODY
-    it('it should fail posting one donation request: no atributes defined'
+    it('it should fail posting one donation request: no attributes defined'
     , (done) => {
       chai.request(server)
         .get('/api/DonationRequests')
@@ -445,7 +445,7 @@ describe('DonationRequest', (done) => {
     });
 
     // SE TRATA DE POSTEAR CON ATRIBUTOS INESPERADOS
-    it('it should fail posting one donation request: unexpected atributes'
+    it('it should fail posting one donation request: unexpected attributes'
     , (done) => {
       chai.request(server)
         // recupero un producto
@@ -615,7 +615,7 @@ describe('DonationRequest', (done) => {
     });
 
     // SE PATCHEA UN DONATION REQUEST CON AMOUNT < COVERED
-    it('it should not patch pedido with amount < covered', (done) => {
+    it('it should not patch donation request with amount < covered', (done) => {
       // recupero los Donation Request que cree antes
       chai.request(server)
         .get('/api/DonationRequests')
@@ -661,7 +661,7 @@ describe('DonationRequest', (done) => {
     });
 
     // SE TRATA DE PATCHEAR CON ATRIBUTOS INESPERADOS
-    it('it should fail patching one donation request: unexpected atributes'
+    it('it should fail patching one donation request: unexpected attributes'
     , (done) => {
       chai.request(server)
         .get('/api/DonationRequests')
@@ -718,7 +718,8 @@ describe('DonationRequest', (done) => {
     });
 
     // DELETE DONATION REQUEST CON ID INVALIDO
-    it('it should fail delete donation request: could not find donation request'
+    it('it should fail deleting a donation request: ' +
+      'could not find donation request'
     , (done) => {
       chai.request(server).delete('/api/DonationRequests/000')
         .send({})
@@ -731,7 +732,7 @@ describe('DonationRequest', (done) => {
 
     // DELETE DONATION REQUEST CON UN DONATION RESPONSE
     it(`it should fail delete donation request: 
-      donnation request has a donation response`
+      donation request has a donation response`
     , (done) => {
       chai.request(server)
         .get('/api/DonationRequests')
@@ -753,7 +754,7 @@ describe('DonationRequest', (done) => {
     this.timeout(100000);
 
     // CLOSE REQUEST VALIDO
-    it('it should close request', (done) => {
+    it('it should close a request', (done) => {
       // recupero los Donation Request que cree antes
       chai.request(server)
         .get('/api/DonationRequests')
@@ -772,7 +773,7 @@ describe('DonationRequest', (done) => {
     });
 
     // CLOSE REQUEST INVALIDO
-    it('it should fail closeRequest: invalid donation request ID', (done) => {
+    it('it should fail close Request: invalid donation request ID', (done) => {
       // recupero los Donation Request que cree antes
       chai.request(server)
         .get('/api/DonationRequests')
@@ -813,7 +814,7 @@ describe('DonationRequest', (done) => {
   // OBTIENE EXISTENTE
   describe('/GET api/DonationRequests ', function() {
     this.timeout(100000);
-    it('it should get one donation requests', (done) => {
+    it('it should get one donation request', (done) => {
       chai.request(server)
         .get('/api/DonationRequests')
         .end((err, res) => {
@@ -834,7 +835,7 @@ describe('DonationRequest', (done) => {
   // OBTIENE INEXISTENTE
   describe('/GET api/DonationRequests ', function() {
     this.timeout(100000);
-    it('it should fail getting one donation requests', (done) => {
+    it('it should fail getting one donation request', (done) => {
       chai.request(server).get('/api/DonationRequests/123123')
         .send({})
         .end((err, res) => {
