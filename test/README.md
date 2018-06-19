@@ -1,31 +1,31 @@
 ![con titulo](./assets/logo.png "LogoUNCO")
 
-#Informe de Testing
+# Informe de Testing
 
-##Verificación y Validación de Software
+## Verificación y Validación de Software
 
 **Integrantes:**
 * Gabriel Cancellieri
 * Lucas Pérez
 * Kevin Isaia
 
-#Introducción
+# Introducción
 Como punto de partida para esta práctica se tomó el sistema de donaciones desarrollado por el voluntariado de la FAI, particularmente la api de este sistema web. En base a esto se escribieron distintas pruebas para 3 módulos que ya presentaban algunos tests, pero tenían una cobertura relativamente baja. Por lo tanto, se amplió el porcentaje de dicha cobertura al máximo posible y se logró detectar algunos fallos, errores y bugs.
 El objetivo principal del presente informe es detallar los resultados arrojados por los test realizados sobre los módulos testeados de la API del sistema de gestión de donaciones que se desarrolla en el voluntariado de la FAI. A continuación se listan y describen las distintas herramientas utilizadas durante la práctica.
 
-####Herramientas utilizadas
+#### Herramientas Utilizadas
 Primeramente, se ha utilizado la herramienta Mocha para realizar los tests sobre la API. Mocha es un framework de testing de JavaScript para programas hechos en Node.js, que cuenta con soporte de navegador, pruebas asincrónicas, informes de cobertura de prueba y el uso de cualquier biblioteca de aserciones. Las librerías utilizadas para llevar a cabo los tests mencionados a continuación son: chai, should y express.
 También se utilizó el explorador de Loopback para realizar ciertas peticiones de pruebas antes de escribir los test.
 Para verificar el cubrimiento de líneas de código testeadas se utilizó una herramienta llamada nyc coverage la cual funciona muy bién en conjunto con mocha y permite generar distintos tipos de salidas para analizar el cubrimiento.
 
-####Referencias:
+#### Referencias:
 * Mocha: https://mochajs.org/
 * nyc: https://github.com/istanbuljs/nyc  -  https://istanbul.js.org/ 
 * Loopback: http://loopback.io/doc/
 
-#Módulos testeados
+# Módulos Testeados
 
-###Donation Request
+### Donation Request
 El archivo correspondiente a los tests del módulo Donation Requests se llama “905.DonationRequest”. Se definieron un total de 25 tests para este módulo. Los happy tests son test que esperan un resultado positivo del servidor (por lo general, con un status 200), en cambio, los tests de error son aquellos que esperan que el servidor o la API devuelva un error de petición (por lo general, con status 400). Seguidamente, se pueden ver los test ejecutados y sus resultados:
 
 ![con titulo](./assets/DReq01.png "TablaDReq01")
@@ -78,7 +78,7 @@ chai.request(server)
         });
 ```
 
-###Organization Review
+### Organization Review
 Los test realizados a este módulo se listan en la siguiente tabla indicando su ubicación en líneas de código, el status que se obtiene y el resultado del test en base al status obtenido. Todos los test se encuentran en un archivo de test llamado 907.organizationReview.test.js
 
 ![con titulo](./assets/ORTabla.jpg "tablaOR")
@@ -163,5 +163,5 @@ organizationId: "asdsadasdsasa".
 ```
 Correctamente muestra una salida de status 404.
 
-#Conclusión
+# Conclusión
 Gracias a la realización de esta práctica se pudieron detectar varios fallos en los módulos estudiados, de los cuales muchas eran similares. Aunque las fallas y errores detectados no se consideran de alto nivel de criticidad, estas pueden ser perjudiciales en determinados aspectos como por ejemplo la legibilidad y modificabilidad que tendrá el sistema. Se recomienda utilizar los códigos http correspondientes para cada tipo de respuesta.
